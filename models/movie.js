@@ -1,70 +1,70 @@
 const mongoose = require('mongoose');
-const { isURL }  = require('validator');
+const { isURL } = require('validator');
 
 const { ObjectId } = mongoose.Schema.Types;
 
 const movieSchema = new mongoose.Schema({
+  // страна создания фильма
   country: {
-    // страна создания фильма
     type: String,
     required: true,
   },
+  // режиссёр фильма
   director: {
-    // режиссёр фильма
     type: String,
     required: true,
   },
+  // длительность фильма
   duration: {
-    // длительность фильма
     type: Number,
     required: true,
   },
+  // год выпуска фильма
   year: {
-    //  год выпуска фильма
     type: String,
     required: true,
   },
+  // описание фильма
   description: {
-    // описание фильма
     type: String,
     required: true,
   },
+  // ссылка на постер к фильму
   image: {
-    // ссылка на постер к фильму
     type: String,
     required: true,
     validate: [isURL],
   },
+  // ссылка на трейлер фильма
   trailerLink: {
-    // ссылка на трейлер фильма
     type: String,
     required: true,
     validate: [isURL],
   },
+  // миниатюрное изображение постера к фильму
   thumbnail: {
-    //  миниатюрное изображение постера к фильму
     type: String,
     required: true,
     validate: [isURL],
   },
+  // _id пользователя, который сохранил фильм
   owner: {
-    // _id пользователя, который сохранил фильм
     type: ObjectId,
     required: true,
     ref: 'user',
   },
+  //  id фильма, который содержится в ответе сервиса MoviesExplorer
   movieId: {
-    //  id фильма, который содержится в ответе сервиса MoviesExplorer
     type: Number,
     required: true,
   },
+  // название фильма на русском языке
   nameRU: {
-    // название фильма на русском языке
     type: String,
     required: true,
   },
+  // название фильма на английском языке
   nameEN: {
-    // название фильма на английском языке
     type: String,
     required: true,
   },

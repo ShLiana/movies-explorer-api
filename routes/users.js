@@ -8,7 +8,9 @@ const {
   userInfoValidation,
 } = require('../middlewares/dataValidation');
 
-router.get('/me', getCurrentUser); // вернуть данные текущего пользователя
-router.patch('/me', userInfoValidation, updateUserInfo); // обновить данные профиля
+// возвращает информацию о пользователе (email и имя)
+router.get('/me', getCurrentUser);
+// обновляет информацию о пользователе (email и имя)
+router.patch('/me', userInfoValidation, updateUserInfo);
 
 module.exports = router;

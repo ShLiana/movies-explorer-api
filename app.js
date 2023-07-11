@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const errorHandler = require('./middlewares/centralError');
+const centralError = require('./middlewares/centralError');
 const router = require('./routes');
 const { MONGO_URL } = require('./utils/errorsConstantsName');
 const limiter = require('./middlewares/rateLimiter');
@@ -37,6 +37,6 @@ app.use(errorLogger);
 // обработчик ошибок celebrate
 app.use(errors());
 
-app.use(errorHandler);
+app.use(centralError);
 
 app.listen(PORT);

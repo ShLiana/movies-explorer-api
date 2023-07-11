@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { celebrate, Joi } = require('celebrate');
-const validation = require('dataValidation/');
-//const { regexAvatarLink } = require('../utils/errorsConstantsName');
-const isURL = (value, helpers) => (validation.isURL(value) ? value : helpers.message('Некоректный URL-адрес'));
+const validator = require('validator/');
+
+const isURL = (value, helpers) => (validator.isURL(value) ? value : helpers.message('Некоректный URL-адрес'));
 
 const signinDataValidation = celebrate({
   body: Joi.object().keys({

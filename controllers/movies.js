@@ -1,8 +1,8 @@
-const Movie = require('../models/movie');
 const { ERROR_STATUS } = require('../utils/errorsConstantsName');
 const BadRequestError = require('../utils/errors/BadRequestError');
 const NotFound = require('../utils/errors/NotFound');
 const ForbiddenError = require('../utils/errors/ForbiddenError');
+const Movie = require('../models/movie');
 
 // Получить все фильмы
 const getMovies = (req, res, next) => {
@@ -21,10 +21,10 @@ const addNewMovie = (req, res, next) => {
     description,
     image,
     trailerLink,
-    nameRU,
-    nameEN,
     thumbnail,
     movieId,
+    nameRU,
+    nameEN,
   } = req.body;
   const owner = req.user._id;
   Movie.create({
@@ -35,13 +35,14 @@ const addNewMovie = (req, res, next) => {
     description,
     image,
     trailerLink,
-    nameRU,
-    nameEN,
     thumbnail,
     movieId,
-    owner, })
+    nameRU,
+    nameEN,
+    owner,
+  })
     .then((movie) => {
-      res.status(ERROR_STATUS.CREATED).send({ data: movie });
+      res.status(ERROR_STATUS.CREATED).send({ movie });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -55,7 +56,7 @@ const addNewMovie = (req, res, next) => {
     });
 };
 
-// Удалить карточку
+// Удалить фильм
 const deleteMovie = (req, res, next) => {
   // Метод поиска по id и удаления фильма
   Movie.findById(req.params._id)
@@ -67,16 +68,16 @@ const deleteMovie = (req, res, next) => {
         throw new ForbiddenError('Вы не можете удалять чужие фильмы');
       }
       return movie
-      .deleteOne()
-      .then(() => res.send({ message: 'Фильм удалён' }))
-      .catch(next);
-  })
-  .catch((err) => {
-    if (err.name === 'ValidationError' || err.name === 'CastError') {
-      return next(new BadRequestError('Введены некорректные данные'));
-    }
-    return next(err);
-  });
+        .deleteOne()
+        .then(() => res.send({ message: 'Фильм удалён' }))
+        .catch(next);
+    })
+    .catch((err) => {
+      if (err.name === 'ValidationError' || err.name === 'CastError') {
+        return next(new BadRequestError('Введены некорректные данные'));
+      }
+      return next(err);
+    });
 };
 
 module.exports = {

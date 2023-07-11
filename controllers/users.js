@@ -13,7 +13,7 @@ const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (user) {
-        res.status(ERROR_STATUS.OK).send({ data: user });
+        res.status(ERROR_STATUS.OK).send({ email: user.email, name: user.name });
       } else {
         throw new NotFound('Пользователь с данным _id не найден');
       }
@@ -40,7 +40,7 @@ const createUser = (req, res, next) => {
       email,
       password: hash,
     }))
-    .then(() => res.status(ERROR_STATUS.CREATED).send({
+    .then((user) => res.status(ERROR_STATUS.CREATED).send({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -60,22 +60,27 @@ const createUser = (req, res, next) => {
 
 // Обновить инфрмацию о пользователе
 const updateUserInfo = (req, res, next) => {
-  const { name, about } = req.body;
+  const { email, name } = req.body;
   return User.findByIdAndUpdate(
     req.user._id,
-    { name, about },
+    { email, name },
     { new: true, runValidators: true },
   )
     .then((user) => {
       if (!user) {
         throw new NotFound('Пользователь не найден');
       }
-      res.status(ERROR_STATUS.OK).send({ user });
+      res.status(ERROR_STATUS.OK).send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(
           new BadRequestError('Введены некорректные данные при обновлении данных профиля'),
+        );
+      }
+      if (err.code === 11000) {
+        return next(
+          new ConflictError('Пользователь с такой почтой уже существует'),
         );
       }
       return next(err);

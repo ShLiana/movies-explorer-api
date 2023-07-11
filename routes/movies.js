@@ -6,11 +6,14 @@ const {
 } = require('../controllers/movies');
 
 const {
-  createMovieValidation, movieIdValidation,
+  addMovieValidation, movieIdValidation,
 } = require('../middlewares/dataValidation');
 
-router.get('/', getMovies); // вернуть все фильмы
-router.post('/', addNewMovie, addNewMovie); // создать фильм
-router.delete('/:_id', movieIdValidation, deleteMovie); // удалить фильм по идентификатору
+// возвращает все сохранённые текущим  пользователем фильмы
+router.get('/', getMovies);
+// создаёт фильм с переданными в теле country, director и т.д.
+router.post('/', addMovieValidation, addNewMovie);
+// удаляет сохранённый фильм по id
+router.delete('/:_id', movieIdValidation, deleteMovie);
 
 module.exports = router;

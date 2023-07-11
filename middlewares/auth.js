@@ -4,9 +4,7 @@ const UnauthorizedError = require('../utils/errors/UnauthorizedError');
 const { NODE_ENV, JWT_SECRET = 'JWT_SECRET' } = process.env;
 
 module.exports = (req, res, next) => {
-  //Достать авториованный заголовок
   const { authorization } = req.headers;
-  // убеждиться, что он есть или начинается с Bearer
   if (!authorization || !authorization.startsWith('Bearer ')) {
     return next(new UnauthorizedError('Требуется авторизация'));
   }

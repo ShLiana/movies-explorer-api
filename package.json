@@ -1,10 +1,9 @@
 {
-  "name": "express-mesto-gha",
+  "name": "movies-explorer-api",
   "version": "1.0.0",
-  "description": "[![Tests](../../actions/workflows/tests-13-sprint.yml/badge.svg)](../../actions/workflows/tests-13-sprint.yml) [![Tests](../../actions/workflows/tests-14-sprint.yml/badge.svg)](../../actions/workflows/tests-14-sprint.yml)\r # Проект Mesto фронтенд + бэкенд",
+  "description": "Дипломная работа - приложение по поиску фильмов",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js",
     "lint": "eslint .",
@@ -12,6 +11,7 @@
   },
   "author": "Shmeleva Liana",
   "license": "ISC",
+  "homepage": "https://github.com/ShLiana/movies-explorer-api#readme",
   "devDependencies": {
     "eslint": "^8.42.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -24,7 +24,10 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-rate-limit": "^6.7.1",
     "express-winston": "^4.2.0",
+    "helmet": "^7.0.0",
+    "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.2",
     "validator": "^13.9.0",
