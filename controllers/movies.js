@@ -59,7 +59,7 @@ const addNewMovie = (req, res, next) => {
 // Удалить фильм
 const deleteMovie = (req, res, next) => {
   // Метод поиска по id и удаления фильма
-  Movie.findById(req.params._id)
+  Movie.findById(req.params.movieId)
     .then((movie) => {
       if (!movie) {
         throw new NotFound('Фильм с этим _id не найден');

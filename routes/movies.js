@@ -14,6 +14,6 @@ router.get('/', getMovies);
 // создаёт фильм с переданными в теле country, director и т.д.
 router.post('/', addMovieValidation, addNewMovie);
 // удаляет сохранённый фильм по id
-router.delete('/movieId', movieIdValidation, deleteMovie);
+router.delete('/:movieId', movieIdValidation, deleteMovie);
 
 module.exports = router;
