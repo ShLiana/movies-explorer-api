@@ -14,7 +14,6 @@ const { limiter } = require('./middlewares/rateLimiter');
 
 const { PORT = 3000 } = process.env;
 const app = express();
-//app.use(cors({origin: ['http:localhost:3000', 'https://movies-app.nomoredomains.work'], credentials: true}));
 app.use(cors());
 mongoose.connect(MONGO_URL);
 
